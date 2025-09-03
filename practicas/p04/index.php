@@ -87,7 +87,21 @@
         echo "<h4>7) \$z[0] = 'MySQL'</h4>";
         print_r($z);
 
-        // Liberar variables para evitar conflictos con otros ejercicios
+
+    ?>
+
+    <h2>Ejercicio 4</h2>
+    <p>Lectura de variables del ejercicio anterior usando <code>\$GLOBALS</code>.</p>
+    <?php
+        echo "<h4>Valores con \$GLOBALS:</h4>";
+        echo "a = " . $GLOBALS['a'] . "<br>";
+        echo "b = " . $GLOBALS['b'] . "<br>";
+        echo "c = " . $GLOBALS['c'] . "<br>";
+
+        echo "<pre>";
+        print_r($GLOBALS['z']); // Mostrar el arreglo completo
+        echo "</pre>";
+
         unset($a, $b, $c, $z);
     ?>
 
