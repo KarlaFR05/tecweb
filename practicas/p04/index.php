@@ -9,7 +9,7 @@
     <p>Determina cuál de las siguientes variables son válidas y explica por qué:</p>
     <p>$_myvar,  $_7var,  myvar,  $myvar,  $var7,  $_element1, $house*5</p>
     <?php
-        //AQUI VA MI CÓDIGO PHP
+       //AQUI VA MI CÓDIGO PHP
         $_myvar;
         $_7var;
         //myvar;       // Inválida
@@ -36,7 +36,7 @@
         $b = "MySQL";
         $c = &$a;
 
-        echo "<h4>Contenido:</h4>";
+        echo "<h4>Muestra contenido:</h4>";
         echo "a=$a, b=$b, c=$c <br>";
 
         $a = "PHP server";
