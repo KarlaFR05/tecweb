@@ -67,22 +67,22 @@
         echo "<h4>3) \$b = '5a version de PHP'</h4>";
         var_dump($b);
 
-        // 4. Intento de multiplicar string por número
+
         $c = $b * 10;
         echo "<h4>4) \$c = \$b * 10</h4>";
         var_dump($c);
 
-        // 5. Concatenación
+
         $a .= $b;
         echo "<h4>5) \$a .= \$b</h4>";
         var_dump($a);
 
-        // 6. Multiplicación de string por 0
+
         $b *= $c;
         echo "<h4>6) \$b *= \$c</h4>";
         var_dump($b);
 
-        // 7. Reasignación dentro del arreglo
+
         $z[0] = "MySQL";
         echo "<h4>7) \$z[0] = 'MySQL'</h4>";
         print_r($z);
@@ -91,7 +91,7 @@
     ?>
 
     <h2>Ejercicio 4</h2>
-    <p>Lectura de variables del ejercicio anterior usando <code>\$GLOBALS</code>.</p>
+    <p>Lectura de variables del ejercicio anterior usando <code>$GLOBALS</code>.</p>
     <?php
         echo "<h4>Valores con \$GLOBALS:</h4>";
         echo "a = " . $GLOBALS['a'] . "<br>";
@@ -99,7 +99,7 @@
         echo "c = " . $GLOBALS['c'] . "<br>";
 
         echo "<pre>";
-        print_r($GLOBALS['z']); // Mostrar el arreglo completo
+        print_r($GLOBALS['z']); 
         echo "</pre>";
 
         unset($a, $b, $c, $z);
