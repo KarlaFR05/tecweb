@@ -42,7 +42,7 @@
         $a = "PHP server";
         $b = &$a;
 
-        echo "<h4>Contenido:</h4>";
+        echo "<h4>Muestra Contenido:</h4>";
         echo "a=$a, b=$b, c=$c <br>";
 
         echo "<p>Explicación: Las referencias unen variables a la misma dirección de memoria.</p>";
