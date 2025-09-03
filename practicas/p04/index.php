@@ -49,7 +49,49 @@
 
         unset($a, $b, $c);
     ?> 
-    
+    <h2>Ejercicio 3</h2>
+    <p>Muestra el contenido de cada variable inmediatamente después de cada asignación.</p>
+    <?php
+        // 1. Asignación inicial
+        $a = "PHP5";
+        echo "<h4>1) \$a = 'PHP5'</h4>";
+        var_dump($a);
+
+        // 2. Guardar referencia en arreglo
+        $z[] = &$a;
+        echo "<h4>2) \$z[] = &\$a</h4>";
+        print_r($z);
+
+        // 3. Nueva variable
+        $b = "5a version de PHP";
+        echo "<h4>3) \$b = '5a version de PHP'</h4>";
+        var_dump($b);
+
+        // 4. Intento de multiplicar string por número
+        $c = $b * 10;
+        echo "<h4>4) \$c = \$b * 10</h4>";
+        var_dump($c);
+
+        // 5. Concatenación
+        $a .= $b;
+        echo "<h4>5) \$a .= \$b</h4>";
+        var_dump($a);
+
+        // 6. Multiplicación de string por 0
+        $b *= $c;
+        echo "<h4>6) \$b *= \$c</h4>";
+        var_dump($b);
+
+        // 7. Reasignación dentro del arreglo
+        $z[0] = "MySQL";
+        echo "<h4>7) \$z[0] = 'MySQL'</h4>";
+        print_r($z);
+
+        // Liberar variables para evitar conflictos con otros ejercicios
+        unset($a, $b, $c, $z);
+    ?>
+
+
 
 </body>
 </html>
