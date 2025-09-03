@@ -120,6 +120,22 @@
     ?>
 
 
+    <h2>Ejercicio 6</h2>
+    <?php
+        $a = "0";
+        $b = "TRUE";
+        $c = FALSE;
+        $d = ($a OR $b);
+        $e = ($a AND $c);
+        $f = ($a XOR $b);
 
+        var_dump($a, $b, $c, $d, $e, $f);
+
+        echo "<br>c (como entero) = " . (int)$c;
+        echo "<br>e (como entero) = " . (int)$e;
+
+        unset($a, $b, $c, $d, $e, $f);
+    ?>
+    
 </body>
 </html>
