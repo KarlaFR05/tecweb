@@ -36,13 +36,13 @@
         $b = "MySQL";
         $c = &$a;
 
-        echo "<h4>Antes:</h4>";
+        echo "<h4>Contenido:</h4>";
         echo "a=$a, b=$b, c=$c <br>";
 
         $a = "PHP server";
         $b = &$a;
 
-        echo "<h4>Después:</h4>";
+        echo "<h4>Contenido:</h4>";
         echo "a=$a, b=$b, c=$c <br>";
 
         echo "<p>Explicación: Las referencias unen variables a la misma dirección de memoria.</p>";
@@ -52,7 +52,7 @@
     <h2>Ejercicio 3</h2>
     <p>Muestra el contenido de cada variable inmediatamente después de cada asignación.</p>
     <?php
-        // 1. Asignación inicial
+        
         $a = "PHP5";
         echo "<h4>1) \$a = 'PHP5'</h4>";
         var_dump($a);
