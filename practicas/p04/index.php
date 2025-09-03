@@ -57,12 +57,12 @@
         echo "<h4>1) \$a = 'PHP5'</h4>";
         var_dump($a);
 
-        // 2. Guardar referencia en arreglo
+        
         $z[] = &$a;
         echo "<h4>2) \$z[] = &\$a</h4>";
         print_r($z);
 
-        // 3. Nueva variable
+
         $b = "5a version de PHP";
         echo "<h4>3) \$b = '5a version de PHP'</h4>";
         var_dump($b);
