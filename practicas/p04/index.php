@@ -104,7 +104,7 @@
 
         unset($a, $b, $c, $z);
     ?>
-
+ ?
     <h2>Ejercicio 5</h2>
     <?php
         $a = "7 personas";
