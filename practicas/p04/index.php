@@ -136,6 +136,14 @@
 
         unset($a, $b, $c, $d, $e, $f);
     ?>
-    
+
+    <h2>Ejercicio 7</h2>
+    <?php
+        echo "Servidor: " . $_SERVER['SERVER_SOFTWARE'] . "<br>";
+        echo "Sistema operativo: " . php_uname() . "<br>";
+        echo "Idioma del navegador: " . $_SERVER['HTTP_ACCEPT_LANGUAGE'] . "<br>";
+    ?>
+
+
 </body>
 </html>
