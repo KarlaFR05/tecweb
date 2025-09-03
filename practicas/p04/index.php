@@ -30,5 +30,26 @@
         echo '<li>$house*5 es inválida porque el símbolo * no está permitido.</li>';
         echo '</ul>';
     ?>
+    <h2>Ejercicio 2</h2>
+    <?php
+        $a = "ManejadorSQL";
+        $b = "MySQL";
+        $c = &$a;
+
+        echo "<h4>Antes:</h4>";
+        echo "a=$a, b=$b, c=$c <br>";
+
+        $a = "PHP server";
+        $b = &$a;
+
+        echo "<h4>Después:</h4>";
+        echo "a=$a, b=$b, c=$c <br>";
+
+        echo "<p>Explicación: Las referencias unen variables a la misma dirección de memoria.</p>";
+
+        unset($a, $b, $c);
+    ?> 
+    
+
 </body>
 </html>
