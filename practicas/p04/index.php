@@ -68,7 +68,7 @@
         var_dump($b);
 
 
-        $c = $b * 10;
+        @$c = @$b * 10;
         echo "<h4>4) \$c = \$b * 10</h4>";
         var_dump($c);
 
@@ -78,7 +78,7 @@
         var_dump($a);
 
 
-        $b *= $c;
+        @$b *= $c;
         echo "<h4>6) \$b *= \$c</h4>";
         var_dump($b);
 
@@ -104,7 +104,7 @@
 
         unset($a, $b, $c, $z);
     ?>
- ?
+ 
     <h2>Ejercicio 5</h2>
     <?php
         $a = "7 personas";
