@@ -23,7 +23,6 @@
     }
 
     // Función Ejercicio 3
-// Ejercicio 3: while y do-while (divisor vía GET, sin mostrar intentos)
     function encontrarMultiploWhile($divisor) {
         while (true) {
             $num = rand(1, 1000);
@@ -41,7 +40,16 @@
         return ["divisor" => $divisor, "num" => $num];
     }
 
+    // Función Ejercicio 4
+    function generarArregloAscii() {
+        $arr = [];
+        for ($i = 97; $i <= 122; $i++) { 
+            $arr[$i] = chr($i); 
+        }
+        return $arr;
+    }
 
+?>
 
 
 

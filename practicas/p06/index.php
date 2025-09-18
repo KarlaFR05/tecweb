@@ -55,6 +55,17 @@
         }
     ?>
 
+    <h2>Ejercicio 4</h2>
+    <?php
+        $arr = generarArregloAscii();
+        echo "<table border='1'>";
+        echo "<tr><th>Índice</th><th>Letra</th></tr>";
+        foreach ($arr as $key => $value) {
+            echo "<tr><td>$key</td><td>$value</td></tr>";
+        }
+        echo "</table>";
+    ?>
+
 
     <h2>Ejemplo de POST</h2>
     <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
