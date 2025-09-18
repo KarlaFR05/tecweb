@@ -49,7 +49,16 @@
         return $arr;
     }
 
-?>
+    // Función Ejercicio 5
+    function validarPersona($edad, $sexo) {
+        $sexo = strtolower($sexo);
+
+        if ($sexo === "femenino" && $edad >= 18 && $edad <= 35) {
+            return "Bienvenida, usted está en el rango de edad permitido.";
+        } else {
+            return "Acceso denegado, no cumple con los requisitos.";
+        }
+    }
 
 
 

@@ -66,21 +66,39 @@
         echo "</table>";
     ?>
 
-
-    <h2>Ejemplo de POST</h2>
-    <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
-        Name: <input type="text" name="name"><br>
-        E-mail: <input type="text" name="email"><br>
-        <input type="submit">
+    <h2>Ejercicio 5</h2>
+    <form method="post" action="">
+        <label>Edad: <input type="number" name="edad" required></label><br>
+        <label>Sexo:
+            <select name="sexo" required>
+                <option value="femenino">Femenino</option>
+                <option value="masculino">Masculino</option>
+            </select>
+        </label><br>
+        <input type="submit" name="verificar" value="Enviar">
     </form>
-    <br>
+
     <?php
-        if(isset($_POST["name"]) && isset($_POST["email"]))
-        {
-            echo $_POST["name"];
-            echo '<br>';
-            echo $_POST["email"];
-        }
+    if (isset($_POST['verificar'])) {
+        $edad = $_POST['edad'];
+        $sexo = $_POST['sexo'];
+
+        echo "<p>" . validarPersona($edad, $sexo) . "</p>";
+    }
     ?>
+    <h2>Ejercicio 6</h2>
+    <form method="post" action="">
+        <label>Buscar por matrícula:
+            <input type="text" name="matricula" placeholder="Ej: UBN6338">
+        </label>
+        <br>
+        <input type="submit" name="buscar" value="Buscar">
+        <input type="submit" name="todos" value="Ver todos">
+    </form>
+
+
+
+
+
 </body>
 </html>
