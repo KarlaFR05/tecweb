@@ -25,6 +25,21 @@
         }
     ?>
 
+    <h2>Ejercicio 2</h2>
+    <?php
+        $res = generarSecuencia();
+        echo "<table border='1'>";
+        foreach ($res["matriz"] as $fila) {
+            echo "<tr>";
+            foreach ($fila as $num) {
+                echo "<td>$num</td>";
+            }
+            echo "</tr>";
+        }
+        echo "</table>";
+        echo "<p>{$res['total']} números obtenidos en {$res['iteraciones']} iteraciones</p>";
+    ?>
+
     <h2>Ejemplo de POST</h2>
     <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
         Name: <input type="text" name="name"><br>
