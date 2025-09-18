@@ -60,6 +60,71 @@
         }
     }
 
+    // Función Ejercicio 6
+    function obtenerParqueVehicular() {
+        return [
+            "UBN6338" => [
+                "Auto" => ["marca" => "HONDA", "modelo" => 2020, "tipo" => "camioneta"],
+                "Propietario" => ["nombre" => "Alfonzo Esparza", "ciudad" => "Puebla, Pue.", "direccion" => "C.U., Jardines de San Manuel"]
+            ],
+            "UBN6339" => [
+                "Auto" => ["marca" => "MAZDA", "modelo" => 2019, "tipo" => "sedan"],
+                "Propietario" => ["nombre" => "Ma. del Consuelo Molina", "ciudad" => "Puebla, Pue.", "direccion" => "97 oriente"]
+            ],
+            "ABC1234" => [
+                "Auto" => ["marca" => "TOYOTA", "modelo" => 2021, "tipo" => "sedan"],
+                "Propietario" => ["nombre" => "Juan Pérez", "ciudad" => "CDMX", "direccion" => "Av. Reforma 100"]
+            ],
+            "XYZ5678" => [
+                "Auto" => ["marca" => "FORD", "modelo" => 2018, "tipo" => "hachback"],
+                "Propietario" => ["nombre" => "Laura Gómez", "ciudad" => "Guadalajara", "direccion" => "Col. Americana"]
+            ],
+            "JKL3456" => [
+                "Auto" => ["marca" => "NISSAN", "modelo" => 2017, "tipo" => "camioneta"],
+                "Propietario" => ["nombre" => "Carlos Ruiz", "ciudad" => "Monterrey", "direccion" => "Av. Constitución"]
+            ],
+            "QWE1122" => [
+                "Auto" => ["marca" => "CHEVROLET", "modelo" => 2016, "tipo" => "sedan"],
+                "Propietario" => ["nombre" => "Ana Torres", "ciudad" => "Querétaro", "direccion" => "Col. Centro"]
+            ],
+            "RTY3344" => [
+                "Auto" => ["marca" => "BMW", "modelo" => 2022, "tipo" => "sedan"],
+                "Propietario" => ["nombre" => "Luis Hernández", "ciudad" => "Puebla", "direccion" => "Lomas de Angelópolis"]
+            ],
+            "UIO5566" => [
+                "Auto" => ["marca" => "AUDI", "modelo" => 2020, "tipo" => "camioneta"],
+                "Propietario" => ["nombre" => "María López", "ciudad" => "Toluca", "direccion" => "Av. Las Torres"]
+            ],
+            "PAS7788" => [
+                "Auto" => ["marca" => "TESLA", "modelo" => 2023, "tipo" => "sedan"],
+                "Propietario" => ["nombre" => "José Martínez", "ciudad" => "CDMX", "direccion" => "Col. Condesa"]
+            ],
+            "MNB9900" => [
+                "Auto" => ["marca" => "KIA", "modelo" => 2019, "tipo" => "hachback"],
+                "Propietario" => ["nombre" => "Sofía Ramírez", "ciudad" => "León", "direccion" => "Av. Universidad"]
+            ],
+            "VFR1123" => [
+                "Auto" => ["marca" => "MERCEDES", "modelo" => 2021, "tipo" => "camioneta"],
+                "Propietario" => ["nombre" => "Pedro Sánchez", "ciudad" => "Puebla", "direccion" => "Zavaleta"]
+            ],
+            "TGB2234" => [
+                "Auto" => ["marca" => "VW", "modelo" => 2015, "tipo" => "sedan"],
+                "Propietario" => ["nombre" => "Andrea Morales", "ciudad" => "Cancún", "direccion" => "Zona Hotelera"]
+            ],
+            "YHN3345" => [
+                "Auto" => ["marca" => "HYUNDAI", "modelo" => 2018, "tipo" => "camioneta"],
+                "Propietario" => ["nombre" => "Raúl Ortiz", "ciudad" => "Mérida", "direccion" => "Col. Montejo"]
+            ],
+            "UJM4456" => [
+                "Auto" => ["marca" => "FIAT", "modelo" => 2016, "tipo" => "hachback"],
+                "Propietario" => ["nombre" => "Paola Fernández", "ciudad" => "San Luis Potosí", "direccion" => "Centro Histórico"]
+            ],
+            "IKL5567" => [
+                "Auto" => ["marca" => "RENAULT", "modelo" => 2017, "tipo" => "sedan"],
+                "Propietario" => ["nombre" => "Fernando Castro", "ciudad" => "Oaxaca", "direccion" => "Av. Juárez"]
+            ]
+        ];
+    }
 
 
 ?>

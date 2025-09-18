@@ -86,6 +86,7 @@
         echo "<p>" . validarPersona($edad, $sexo) . "</p>";
     }
     ?>
+    
     <h2>Ejercicio 6</h2>
     <form method="post" action="">
         <label>Buscar por matrícula:
@@ -95,6 +96,29 @@
         <input type="submit" name="buscar" value="Buscar">
         <input type="submit" name="todos" value="Ver todos">
     </form>
+
+    <?php
+    if (isset($_POST['buscar']) && !empty($_POST['matricula'])) {
+        $matricula = strtoupper(trim($_POST['matricula']));
+        $autos = obtenerParqueVehicular();
+
+        if (isset($autos[$matricula])) {
+            echo "<pre>";
+            print_r([$matricula => $autos[$matricula]]);
+            echo "</pre>";
+        } else {
+            echo "<p>No se encontró ningún vehículo con matrícula $matricula.</p>";
+        }
+    }
+
+    if (isset($_POST['todos'])) {
+        $autos = obtenerParqueVehicular();
+        echo "<pre>";
+        print_r($autos);
+        echo "</pre>";
+    }
+    ?>
+
 
 
 
