@@ -14,7 +14,7 @@
         if(isset($_GET['numero']))
         {
             $num = $_GET['numero'];
-            if (esMultiplo5y7($num))
+            if (esMultiplo($num))
             {
                 echo '<h3>R= El número '.$num.' SÍ es múltiplo de 5 y 7.</h3>';
             }
@@ -39,6 +39,22 @@
         echo "</table>";
         echo "<p>{$res['total']} números obtenidos en {$res['iteraciones']} iteraciones</p>";
     ?>
+
+    <h2>Ejercicio 3</h2>
+    <?php
+        if (isset($_GET["divisor"])) {
+            $div = $_GET["divisor"];
+
+            $res1 = encontrarMultiploWhile($div);
+            echo "<p>Primer múltiplo usando WHILE de {$res1['divisor']}: {$res1['num']} </p>";
+
+            $res2 = encontrarMultiploDoWhile($div);
+            echo "<p>Primer múltiplo usando DO-WHILE  de {$res2['divisor']}: {$res2['num']} </p>";
+        } else {
+            echo "<p>Agrega el parámetro en la URL, ej: <code>?divisor=13</code></p>";
+        }
+    ?>
+
 
     <h2>Ejemplo de POST</h2>
     <form action="http://localhost/tecweb/practicas/p04/index.php" method="post">
