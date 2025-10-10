@@ -23,7 +23,7 @@ if ($result->num_rows > 0) {
     
     if ($insert->execute()) {
         echo "<h2>Producto registrado con éxito</h2>";
-        echo "<ul><li>Nombre: $nombre</li><li>Marca: $marca</li><li>Modelo: $modelo</li><li>Precio: $$precio</li><li>Unidades: $unidades</li></ul>";
+        echo "<ul><li>Nombre: $nombre</li><li>Marca: $marca</li><li>Modelo: $modelo</li><li>Precio: $$precio</li><li>Unidades: $unidades</li><li>Imagen: $imagen</li></ul>";
     } else {
         echo "<h2>Error al registrar el producto.</h2>";
     }
