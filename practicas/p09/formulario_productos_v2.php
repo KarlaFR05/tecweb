@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar Producto</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; }
+    label { display: inline-block; width: 150px; margin-top: 10px; }
+    input, textarea, select { width: 300px; padding: 5px; }
+    button { margin-top: 20px; padding: 8px 20px; }
+  </style>
+</head>
+<body>
+  <h1>Registrar Nuevo Producto</h1>
+<form id="miFormulario" action="http://localhost/tecweb/practicas/p09/update_producto.php" method="post">
+    <fieldset>
+            <legend>Actualiza los datos de los productos:</legend>
+            <ul>
+
+                <li><label>Nombre:</label> 
+                    <input type="text" name="nombre" value="<?= isset($_POST['nombre']) ? $_POST['nombre'] : (isset($_GET['nombre']) ? $_GET['nombre'] : '') ?>">
+                </li>
+                <li>
+                    <label>Marca:</label> 
+                    <select name="marca">
+                        <option value="">Seleccione una marca</option>
+                        <option value="Samsung" <?= (isset($_POST['marca']) && $_POST['marca'] == "Samsung") || (isset($_GET['marca']) && $_GET['marca'] == "Samsung") ? 'selected' : '' ?>>Samsung</option>
+                        <option value="iPhone" <?= (isset($_POST['marca']) && $_POST['marca'] == "iPhone") || (isset($_GET['marca']) && $_GET['marca'] == "iPhone") ? 'selected' : '' ?>>iPhone</option>
+                        <option value="OPPO" <?= (isset($_POST['marca']) && $_POST['marca'] == "OPPO") || (isset($_GET['marca']) && $_GET['marca'] == "OPPO") ? 'selected' : '' ?>>OPPO</option>
+                        <option value="Xiaomi" <?= (isset($_POST['marca']) && $_POST['marca'] == "Xiaomi") || (isset($_GET['marca']) && $_GET['marca'] == "Xiaomi") ? 'selected' : '' ?>>Xiaomi</option>
+                        <option value="Huawei" <?= (isset($_POST['marca']) && $_POST['marca'] == "Huawei") || (isset($_GET['marca']) && $_GET['marca'] == "Huawei") ? 'selected' : '' ?>>Huawei</option>
+                        <option value="Motorola" <?= (isset($_POST['marca']) && $_POST['marca'] == "Motorola") || (isset($_GET['marca']) && $_GET['marca'] == "Motorola") ? 'selected' : '' ?>>Motorola</option>
+                    </select>
+                </li>
+                <li><label>Modelo:</label> 
+                    <input type="text" name="modelo" value="<?= isset($_POST['modelo']) ? $_POST['modelo'] : (isset($_GET['modelo']) ? $_GET['modelo'] : '') ?>">
+                </li>
+                <li><label>Precio:</label> 
+                    <input type="number" name="precio" step="0.01" value="<?= isset($_POST['precio']) ? $_POST['precio'] : (isset($_GET['precio']) ? $_GET['precio'] : '') ?>">
+                </li>
+                <li><label>Unidades:</label> 
+                    <input type="number" name="unidades" value="<?= isset($_POST['unidades']) ? $_POST['unidades'] : (isset($_GET['unidades']) ? $_GET['unidades'] : '') ?>">
+                </li>
+                <li><label>Detalles:</label> 
+                    <textarea name="detalles"><?= isset($_POST['detalles']) ? $_POST['detalles'] : (isset($_GET['detalles']) ? $_GET['detalles'] : '') ?></textarea>
+                </li>
+                <li><label>Imagen:</label> 
+                    <input type="text" name="imagen" value="<?= isset($_POST['imagen']) ? $_POST['imagen'] : (isset($_GET['imagen']) ? $_GET['imagen'] : '') ?>">
+                </li>
+                <li><label>Eliminado:</label> 
+                    <input type="number" name="eliminado" value="...">
+                </li>
+            </ul>
+        </fieldset>
+        <p>
+            <input type="submit" value="ENVIAR">
+        </p>
+    </form>
+    <script>
+    document.getElementById("miFormulario").addEventListener("submit", function(event) {
+        event.preventDefault(); 
+        
+        let nombre = document.querySelector("[name='nombre']").value.trim();
+        let marca = document.querySelector("[name='marca']").value;
+        let modelo = document.querySelector("[name='modelo']").value.trim();
+        let precio = parseFloat(document.querySelector("[name='precio']").value);
+        let detalles = document.querySelector("[name='detalles']").value.trim();
+        let unidades = parseInt(document.querySelector("[name='unidades']").value);
+        let imagen = document.querySelector("[name='imagen']").value.trim();
+
+        // Validaciones
+        if (!nombre) {
+            alert("El nombre es requerido.");
+            return;
+        }
+        if (nombre.length > 100) {
+            alert("El nombre debe tener 100 caracteres o menos.");
+            return;
+        }
+        if (!marca) {
+            alert("La marca es requerida.");
+            return;
+        }
+        if (!/^[A-Za-z0-9\s\-_]+$/.test(modelo)) {
+            alert("El modelo solo puede contener letras, números, espacios, guiones o guiones bajos.");
+            return;
+        }
+        if (modelo.length > 25) {
+            alert("El modelo debe tener 25 caracteres o menos.");
+            return;
+        }
+        if (isNaN(precio) || precio <= 99.99) {
+            alert("El precio debe ser un número mayor a 99.99.");
+            return;
+        }
+        if (detalles.length > 250) {
+            alert("Los detalles no pueden exceder los 250 caracteres.");
+            return;
+        }
+        if (isNaN(unidades) || unidades < 0) {
+            alert("Las unidades deben ser un número igual o mayor a 0.");
+            return;
+        }
+        let imagenField = document.querySelector("[name='imagen']");
+        if (!imagenField.value.trim()) {
+            imagenField.value = "src/imagen.png";
+        }
+
+        alert("Formulario validado correctamente. Enviando...");
+
+        event.target.submit();
+    });
+</script>
+
+</body>
+</html>
