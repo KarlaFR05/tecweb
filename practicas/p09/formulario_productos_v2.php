@@ -13,10 +13,14 @@
 </head>
 <body>
   <h1>Registrar Nuevo Producto</h1>
-  <form action="http://localhost/tecweb/practicas/p08/set_producto_v2.php" method="post">
+  <form action="http://localhost/tecweb/practicas/p09/update_producto.php" method="post">
     <fieldset>
             <legend>Actualiza los datos de los productos:</legend>
             <ul>
+                <li>
+                    <label>Id:</label>
+                    <input type="text" name="id" value="<?= $_POST['id'] ?>" readonly />
+                </li>
                 <li><label>Nombre:</label> 
                     <input type="text" name="nombre" value="<?= isset($_POST['nombre']) ? $_POST['nombre'] : (isset($_GET['nombre']) ? $_GET['nombre'] : '') ?>">
                 </li>
