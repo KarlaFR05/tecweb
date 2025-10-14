@@ -13,14 +13,11 @@
 </head>
 <body>
   <h1>Registrar Nuevo Producto</h1>
-  <form action="http://localhost/tecweb/practicas/p09/update_producto.php" method="post">
+<form id="miFormulario" action="http://localhost/tecweb/practicas/p09/update_producto.php" method="post">
     <fieldset>
             <legend>Actualiza los datos de los productos:</legend>
             <ul>
-                <li>
-                    <label>Id:</label>
-                    <input type="text" name="id" value="<?= $_POST['id'] ?>" readonly />
-                </li>
+
                 <li><label>Nombre:</label> 
                     <input type="text" name="nombre" value="<?= isset($_POST['nombre']) ? $_POST['nombre'] : (isset($_GET['nombre']) ? $_GET['nombre'] : '') ?>">
                 </li>
@@ -28,7 +25,7 @@
                     <label>Marca:</label> 
                     <select name="marca">
                         <option value="">Seleccione una marca</option>
-                        <option value="SAMSUNG" <?= (isset($_POST['marca']) && $_POST['marca'] == "SAMSUNG") || (isset($_GET['marca']) && $_GET['marca'] == "SAMSUNG") ? 'selected' : '' ?>>SAMSUNG</option>
+                        <option value="Samsung" <?= (isset($_POST['marca']) && $_POST['marca'] == "Samsung") || (isset($_GET['marca']) && $_GET['marca'] == "Samsung") ? 'selected' : '' ?>>Samsung</option>
                         <option value="iPhone" <?= (isset($_POST['marca']) && $_POST['marca'] == "iPhone") || (isset($_GET['marca']) && $_GET['marca'] == "iPhone") ? 'selected' : '' ?>>iPhone</option>
                         <option value="OPPO" <?= (isset($_POST['marca']) && $_POST['marca'] == "OPPO") || (isset($_GET['marca']) && $_GET['marca'] == "OPPO") ? 'selected' : '' ?>>OPPO</option>
                         <option value="Xiaomi" <?= (isset($_POST['marca']) && $_POST['marca'] == "Xiaomi") || (isset($_GET['marca']) && $_GET['marca'] == "Xiaomi") ? 'selected' : '' ?>>Xiaomi</option>
@@ -52,7 +49,7 @@
                     <input type="text" name="imagen" value="<?= isset($_POST['imagen']) ? $_POST['imagen'] : (isset($_GET['imagen']) ? $_GET['imagen'] : '') ?>">
                 </li>
                 <li><label>Eliminado:</label> 
-                    <input type="number" name="eliminado" value="<?= isset($_POST['eliminado']) ? $_POST['eliminado'] : (isset($_GET['eliminado']) ? $_GET['eliminado'] : '') ?>">
+                    <input type="number" name="eliminado" value="...">
                 </li>
             </ul>
         </fieldset>
@@ -85,15 +82,15 @@
             alert("La marca es requerida.");
             return;
         }
-        if (!modelo.match(/^[A-Za-z0-9]+$/)) {
-            alert("El modelo debe ser alfanumérico.");
+        if (!/^[A-Za-z0-9\s\-_]+$/.test(modelo)) {
+            alert("El modelo solo puede contener letras, números, espacios, guiones o guiones bajos.");
             return;
         }
         if (modelo.length > 25) {
             alert("El modelo debe tener 25 caracteres o menos.");
             return;
         }
-        if (isNaN(precio) || precio >= 99.99) {
+        if (isNaN(precio) || precio <= 99.99) {
             alert("El precio debe ser un número mayor a 99.99.");
             return;
         }
@@ -105,8 +102,9 @@
             alert("Las unidades deben ser un número igual o mayor a 0.");
             return;
         }
-        if (!imagen) {
-            imagen = "img/imagen.png";
+        let imagenField = document.querySelector("[name='imagen']");
+        if (!imagenField.value.trim()) {
+            imagenField.value = "src/imagen.png";
         }
 
         alert("Formulario validado correctamente. Enviando...");
