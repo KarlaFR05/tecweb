@@ -114,6 +114,12 @@ function buscarProducto(e, inputId, parametro) {
     client.send(new URLSearchParams({ [parametro]: nombre }).toString());
 }
 
+//MENSAJE DE ALERTA
+function mostrarMensaje(mensaje) {
+    console.log("Mensaje para alerta:", mensaje);  // Ver en consola el mensaje
+    window.alert(mensaje);  // Mostrar en el alert
+}
+
 function validarProducto(finalJSON, nombre) {
     let errores = [];
 
