@@ -113,6 +113,42 @@ function buscarProducto(e, inputId, parametro) {
     };
     client.send(new URLSearchParams({ [parametro]: nombre }).toString());
 }
+
+function validarProducto(finalJSON, nombre) {
+    let errores = [];
+
+    if (!nombre || nombre.length > 100) {
+        errores.push("El nombre es obligatorio y debe tener 100 caracteres o menos.");
+    }
+
+    let marca = finalJSON.marca ? finalJSON.marca.trim() : "";
+    if (!marca||marca=="NA") {
+        errores.push("La marca es obligatoria.");
+    }
+
+    let modelo = finalJSON.modelo ? finalJSON.modelo.trim() : "";
+    let modeloRegex = /^[a-zA-Z0-9\-]+$/; // Solo letras, números y guiones
+    if (!modelo || modelo.length > 25 || !modeloRegex.test(modelo)) {
+        errores.push("El modelo es obligatorio, alfanumérico y debe tener 25 caracteres o menos.");
+    }
+
+    let precio = parseFloat(finalJSON.precio);
+    if (isNaN(precio) || precio <= 99.99) {
+        errores.push("El precio es obligatorio y debe ser mayor a 99.99.");
+    }
+
+    let detalles = finalJSON.detalles ? finalJSON.detalles.trim() : "";
+    if (detalles.length > 250) {
+        errores.push("Los detalles deben tener 250 caracteres o menos.");
+    }
+
+    let unidades = parseInt(finalJSON.unidades);
+    if (isNaN(unidades) || unidades <= 0) {
+        errores.push("Las unidades son obligatorias y deben ser 0 o más.");
+    }
+
+    return errores;
+}
 // FUNCIÓN CALLBACK DE BOTÓN "Agregar Producto"
 function agregarProducto(e) {
     e.preventDefault();
@@ -121,8 +157,20 @@ function agregarProducto(e) {
     var productoJsonString = document.getElementById('description').value;
     // SE CONVIERTE EL JSON DE STRING A OBJETO
     var finalJSON = JSON.parse(productoJsonString);
+    // SE OBTIENE EL NOMBRE DESDE EL FORMULARIO
+    let nombre = document.getElementById('name').value.trim();
+
+    // LLAMAR A LA FUNCIÓN DE VALIDACIÓN
+    let errores = validarProducto(finalJSON, nombre);
+
+    // SI HAY ERRORES, SE MUESTRAN Y SE DETIENE LA EJECUCIÓN
+    if (errores.length > 0) {
+        mostrarMensaje("Errores:\n" + errores.join("\n"));
+        return;
+    }
+
     // SE AGREGA AL JSON EL NOMBRE DEL PRODUCTO
-    finalJSON['nombre'] = document.getElementById('name').value;
+    finalJSON['nombre'] = nombre;
     // SE OBTIENE EL STRING DEL JSON FINAL
     productoJsonString = JSON.stringify(finalJSON,null,2);
 
@@ -133,7 +181,14 @@ function agregarProducto(e) {
     client.onreadystatechange = function () {
         // SE VERIFICA SI LA RESPUESTA ESTÁ LISTA Y FUE SATISFACTORIA
         if (client.readyState == 4 && client.status == 200) {
-            console.log(client.responseText);
+           let response = JSON.parse(client.responseText);
+            if (response.success) {
+                console.log("Success: " + response.success);
+                mostrarMensaje(response.success);
+            } else if (response.error) {
+                console.log("Error: " + response.error);
+                mostrarMensaje(response.error);
+            }
         }
     };
     client.send(productoJsonString);
