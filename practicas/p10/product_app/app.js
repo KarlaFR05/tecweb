@@ -36,18 +36,19 @@ function buscarID(e) {
             if(Object.keys(productos).length > 0) {
                 // SE CREA UNA LISTA HTML CON LA DESCRIPCIÓN DEL PRODUCTO
                 let descripcion = '';
-                    descripcion += '<li>precio: '+productos.precio+'</li>';
-                    descripcion += '<li>unidades: '+productos.unidades+'</li>';
-                    descripcion += '<li>modelo: '+productos.modelo+'</li>';
-                    descripcion += '<li>marca: '+productos.marca+'</li>';
-                    descripcion += '<li>detalles: '+productos.detalles+'</li>';
+                    descripcion += '<li>nombre: '+productos[0].nombre+'</li>';
+                    descripcion += '<li>precio: '+productos[0].precio+'</li>';
+                    descripcion += '<li>unidades: '+productos[0].unidades+'</li>';
+                    descripcion += '<li>modelo: '+productos[0].modelo+'</li>';
+                    descripcion += '<li>marca: '+productos[0].marca+'</li>';
+                    descripcion += '<li>detalles: '+productos[0].detalles+'</li>';
                 
                 // SE CREA UNA PLANTILLA PARA CREAR LA(S) FILA(S) A INSERTAR EN EL DOCUMENTO HTML
                 let template = '';
                     template += `
                         <tr>
-                            <td>${productos.id}</td>
-                            <td>${productos.nombre}</td>
+                            <td>${productos[0].id}</td>
+                            <td>${productos[0].nombre}</td>
                             <td><ul>${descripcion}</ul></td>
                         </tr>
                     `;
@@ -60,6 +61,58 @@ function buscarID(e) {
     client.send("id="+id);
 }
 
+//FUNCIÓN BUSCAR PRODUCTO
+function buscarProducto(e, inputId, parametro) {
+    e.preventDefault();
+
+    // SE OBTIENE EL ID A BUSCAR
+    let nombre = document.getElementById(inputId).value.trim();
+    // SE CREA EL OBJETO DE CONEXIÓN ASÍNCRONA AL SERVIDOR
+    var client = getXMLHttpRequest();
+    client.open('POST', './backend/read.php', true);
+    client.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    client.onreadystatechange = function () {
+        // SE VERIFICA SI LA RESPUESTA ESTÁ LISTA Y FUE SATISFACTORIA
+        if (client.readyState == 4 && client.status == 200) {
+            console.log('[CLIENTE]\n'+client.responseText);
+            
+            // SE OBTIENE EL OBJETO DE DATOS A PARTIR DE UN STRING JSON
+            let productos = JSON.parse(client.responseText);    // similar a eval('('+client.responseText+')');
+            
+            // SE VERIFICA SI EL OBJETO JSON TIENE DATOS
+            //if(Object.keys(productos).length > 0) {
+                // SE CREA UNA LISTA HTML CON LA DESCRIPCIÓN DEL PRODUCTO
+                if (productos.length > 0) {
+                    let template = "";
+    
+                    productos.forEach(producto => {
+                        let descripcion = `
+                            <ul>
+                                <li>Precio: ${producto.precio}</li>
+                                <li>Unidades: ${producto.unidades}</li>
+                                <li>Modelo: ${producto.modelo}</li>
+                                <li>Marca: ${producto.marca}</li>
+                                <li>Detalles: ${producto.detalles}</li>
+                            </ul>`;
+    
+                        template += `
+                            <tr>
+                                <td>${producto.id}</td>
+                                <td>${producto.nombre}</td>
+                                <td>${descripcion}</td>
+                            </tr>`;
+                    });
+    
+                
+                // SE INSERTA LA PLANTILLA EN EL ELEMENTO CON ID "productos"
+                document.getElementById("productos").innerHTML = template;
+            }else {
+                document.getElementById("productos").innerHTML = "<tr><td colspan='3'>No se encontraron productos</td></tr>";
+            }
+        }
+    };
+    client.send(new URLSearchParams({ [parametro]: nombre }).toString());
+}
 // FUNCIÓN CALLBACK DE BOTÓN "Agregar Producto"
 function agregarProducto(e) {
     e.preventDefault();
