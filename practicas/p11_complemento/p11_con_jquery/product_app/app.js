@@ -133,16 +133,31 @@ $(document).ready(function(){
         }
     }
 
+    function validarImagen() {
+        const val = $('#imagen').val().trim();
+        if (val !== '' && !/^img\/[\w,\s-]+\.[A-Za-z]{3,4}$/.test(val)) {
+            $('#imagen').addClass('is-invalid');
+            $('#imagen-error').text('La ruta de la imagen debe ser válida (por ejemplo: img/imagen.png)');
+            return false;
+        } else {
+            $('#imagen').removeClass('is-invalid');
+            $('#imagen-error').text('');
+            return true;
+        }
+    }
+
+
     function validarFormulario() {
         let valido = true;
-        valido &= validarNombre();
-        valido &= validarMarca();
-        valido &= validarModelo();
-        valido &= validarPrecio();
-        valido &= validarDetalles();
-        valido &= validarUnidades();
+        if (!validarNombre()) valido = false;
+        if (!validarMarca()) valido = false;
+        if (!validarModelo()) valido = false;
+        if (!validarPrecio()) valido = false;
+        if (!validarDetalles()) valido = false;
+        if (!validarUnidades()) valido = false;
         return valido;
     }
+
 
     function listarProductos() {
         $.ajax({
