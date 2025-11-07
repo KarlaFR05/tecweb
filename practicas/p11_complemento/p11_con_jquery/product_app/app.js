@@ -1,20 +1,121 @@
 // JSON BASE A MOSTRAR EN FORMULARIO
-var baseJSON = {
+/*var baseJSON = {
     "precio": 0.0,
     "unidades": 1,
     "modelo": "XX-000",
     "marca": "NA",
     "detalles": "NA",
     "imagen": "img/default.png"
-  };
+  };*/
 
 $(document).ready(function(){
     let edit = false;
 
-    let JsonString = JSON.stringify(baseJSON,null,2);
-    $('#description').val(JsonString);
+    /*let JsonString = JSON.stringify(baseJSON,null,2);
+    $('#description').val(JsonString);*/
+
     $('#product-result').hide();
     listarProductos();
+
+    // Validaciones
+    $('#name').on('blur', validarNombre);
+    $('#marca').on('blur', validarMarca);
+    $('#modelo').on('blur', validarModelo);
+    $('#precio').on('blur', validarPrecio);
+    $('#detalles').on('blur', validarDetalles);
+    $('#unidades').on('blur', validarUnidades);
+    $('#imagen').on('blur', validarImagen);
+
+    //Funciones para validar  la información
+    function validarNombre() {
+        const val = $('#name').val().trim();
+        if (val === '' || val.length > 100) {
+            $('#name').addClass('is-invalid');
+            $('#name-error').text('El nombre es requerido y máximo debe tener 100 caracteres');
+            return false;
+        } else {
+            $('#name').removeClass('is-invalid');
+            $('#name-error').text('');
+            return true;
+        }
+    }
+
+    function validarMarca() {
+        const val = $('#marca').val();
+        const marcasValidas = ["Samsung", "iPhone", "OPPO", "Xiaomi", "Huawei", "Motorola"];
+        if (!val || !marcasValidas.includes(val)) {
+            $('#marca').addClass('is-invalid');
+            $('#marca-error').text('Marca requerida y  debe ser válida');
+            return false;
+        } else {
+            $('#marca').removeClass('is-invalid');
+            $('#marca-error').text('');
+            return true;
+        }
+    }
+
+    function validarModelo() {
+        const val = $('#modelo').val().trim();
+        const regex = /^[a-zA-Z0-9\s\-_]{1,25}$/;
+        if (val === '' || !regex.test(val)) {
+            $('#modelo').addClass('is-invalid');
+            $('#modelo-error').text('Modelo requerido, alfanumérico, debe ser menor a 25 caracteres (solo letras, números, espacios, guiones o guiones bajos)');
+            return false;
+        } else {
+            $('#modelo').removeClass('is-invalid');
+            $('#modelo-error').text('');
+            return true;
+        }
+    }
+
+    function validarPrecio() {
+        const val = parseFloat($('#precio').val());
+        if (isNaN(val) || val <= 99.99) {
+            $('#precio').addClass('is-invalid');
+            $('#precio-error').text('El precio requerido  y debe ser mayor a 99.99');
+            return false;
+        } else {
+            $('#precio').removeClass('is-invalid');
+            $('#precio-error').text('');
+            return true;
+        }
+    }
+    function validarDetalles() {
+        const val = $('#detalles').val().trim();
+        if (val !== '' && val.length > 250) {
+            $('#detalles').addClass('is-invalid');
+            $('#detalles-error').text('Detalles debe contener máximo 250 caracteres');
+            return false;
+        } else {
+            $('#detalles').removeClass('is-invalid');
+            $('#detalles-error').text('');
+            return true;
+        }
+    }
+
+    function validarUnidades() {
+        const val = parseInt($('#unidades').val());
+        if (isNaN(val) || val < 0) {
+            $('#unidades').addClass('is-invalid');
+            $('#unidades-error').text('Unidades requeridas y ≥ 0');
+            return false;
+        } else {
+            $('#unidades').removeClass('is-invalid');
+            $('#unidades-error').text('');
+            return true;
+        }
+    }
+
+    function validarFormulario() {
+        let valido = true;
+        valido &= validarNombre();
+        valido &= validarMarca();
+        valido &= validarModelo();
+        valido &= validarPrecio();
+        valido &= validarDetalles();
+        valido &= validarUnidades();
+        return valido;
+    }
 
     function listarProductos() {
         $.ajax({
@@ -121,16 +222,23 @@ $(document).ready(function(){
     $('#product-form').submit(e => {
         e.preventDefault();
 
-        // SE CONVIERTE EL JSON DE STRING A OBJETO
-        let postData = JSON.parse( $('#description').val() );
-        // SE AGREGA AL JSON EL NOMBRE DEL PRODUCTO
-        postData['nombre'] = $('#name').val();
-        postData['id'] = $('#productId').val();
+        if (!validarFormulario()) {
+            $('#product-result').show();
+            $('#container').html('<li style="color:red; list-style:none;">Corrige los errores en el formulario.</li>');
+            return;
+        }
 
-        /**
-         * AQUÍ DEBES AGREGAR LAS VALIDACIONES DE LOS DATOS EN EL JSON
-         * --> EN CASO DE NO HABER ERRORES, SE ENVIAR EL PRODUCTO A AGREGAR
-         **/
+       
+        let postData = {
+            nombre: $('#name').val().trim(),
+            marca: $('#marca').val(),
+            modelo: $('#modelo').val().trim(),
+            precio: parseFloat($('#precio').val()),
+            detalles: $('#detalles').val().trim() || 'NA',
+            unidades: parseInt($('#unidades').val()),
+            imagen: $('#imagen').val().trim() || 'img/default.png',
+            id: $('#productId').val()
+        };
 
         const url = edit === false ? './backend/product-add.php' : './backend/product-edit.php';
         
@@ -145,8 +253,8 @@ $(document).ready(function(){
                         <li style="list-style: none;">message: ${respuesta.message}</li>
                     `;
             // SE REINICIA EL FORMULARIO
-            $('#name').val('');
-            $('#description').val(JsonString);
+            $('#name, #marca, #modelo, #precio, #detalles, #unidades, #imagen').val('');
+            $('#name, #marca, #modelo, #precio, #detalles, #unidades, #imagen').removeClass('is-invalid');
             // SE HACE VISIBLE LA BARRA DE ESTADO
             $('#product-result').show();
             // SE INSERTA LA PLANTILLA PARA LA BARRA DE ESTADO
@@ -161,7 +269,7 @@ $(document).ready(function(){
 
     $(document).on('click', '.product-delete', (e) => {
         if(confirm('¿Realmente deseas eliminar el producto?')) {
-            const element = $(this)[0].activeElement.parentElement.parentElement;
+            const element = $(this).closest('tr');
             const id = $(element).attr('productId');
             $.post('./backend/product-delete.php', {id}, (response) => {
                 $('#product-result').hide();
@@ -178,16 +286,13 @@ $(document).ready(function(){
             let product = JSON.parse(response);
             // SE INSERTAN LOS DATOS ESPECIALES EN LOS CAMPOS CORRESPONDIENTES
             $('#name').val(product.nombre);
-            // EL ID SE INSERTA EN UN CAMPO OCULTO PARA USARLO DESPUÉS PARA LA ACTUALIZACIÓN
-            $('#productId').val(product.id);
-            // SE ELIMINA nombre, eliminado E id PARA PODER MOSTRAR EL JSON EN EL <textarea>
-            delete(product.nombre);
-            delete(product.eliminado);
-            delete(product.id);
-            // SE CONVIERTE EL OBJETO JSON EN STRING
-            let JsonString = JSON.stringify(product,null,2);
-            // SE MUESTRA STRING EN EL <textarea>
-            $('#description').val(JsonString);
+            $('#marca').val(product.marca);
+            $('#modelo').val(product.modelo);
+            $('#precio').val(product.precio);
+            $('#detalles').val(product.detalles === 'NA' ? '' : product.detalles);
+            $('#unidades').val(product.unidades);
+            $('#imagen').val(product.imagen === 'img/default.png' ? '' : product.imagen);
+            $('#productId').val(product.id)
             
             // SE PONE LA BANDERA DE EDICIÓN EN true
             edit = true;

@@ -32,11 +32,48 @@
               <!-- FORMULARIO PARA AGREGAR PRODUCTO -->
               <form id="product-form">
                 <div class="form-group">
-                  <input class="form-control" type="text" id="name" placeholder="Nombre de producto">
+                  <input class="form-control" type="text" id="name" placeholder="Nombre del producto (Máximo 100 caracteres)" maxlength="100">
+                  <div class="invalid-feedback" id="name-error"></div>
                 </div>
+
                 <div class="form-group">
-                  <textarea class="form-control" id="description" cols="30" rows="10" placeholder="JSON de producto"></textarea>
+                  <select class="form-control" id="marca">
+                    <option value="">-- Selecciona una marca --</option>
+                    <option value="Samsung">Samsung</option>
+                    <option value="iPhone">iPhone</option>
+                    <option value="OPPO">OPPO</option>
+                    <option value="Xiaomi">Xiaomi</option>
+                    <option value="Huawei">Huawei</option>
+                    <option value="Motorola">Motorola</option>
+                  </select>
+                  <div class="invalid-feedback" id="marca-error"></div>
                 </div>
+
+                <div class="form-group">
+                  <input class="form-control" type="text" id="modelo" placeholder="Modelo (Debe ser alfanumérico con máximo 25 caracteres)" maxlength="25">
+                  <div class="invalid-feedback" id="modelo-error"></div>
+                </div>
+
+                <div class="form-group">
+                  <input class="form-control" type="number" step="0.01" id="precio" placeholder="Precio (Debe ser mayor a 99.99)">
+                  <div class="invalid-feedback" id="precio-error"></div>
+                </div>
+
+                <div class="form-group">
+                  <textarea class="form-control" id="detalles" placeholder="Agrega detalles del producto (Máximo 250 caracteres)" maxlength="250" rows="3"></textarea>
+                  <div class="invalid-feedback" id="detalles-error"></div>
+                </div>
+
+                <div class="form-group">
+                  <input class="form-control" type="number" id="unidades" placeholder="Unidades (Debe ser mayor a 0)">
+                  <div class="invalid-feedback" id="unidades-error"></div>
+                </div>
+
+                <div class="form-group">
+                  <input class="form-control" type="text" id="imagen" placeholder="img/imagen.png">
+                  <div class="invalid-feedback" id="imagen-error"></div>
+                </div>
+
                 <input type="hidden" id="productId">
                 <button class="btn btn-primary btn-block text-center" type="submit">
                   Agregar Producto
