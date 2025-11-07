@@ -18,7 +18,11 @@ $(document).ready(function(){
     listarProductos();
 
     // Validaciones
-    $('#name').on('blur', validarNombre);
+    $('#name').on('blur', function() {
+        if (validarNombre()) {
+            validarNombreUnico();
+        }
+    });
     $('#marca').on('blur', validarMarca);
     $('#modelo').on('blur', validarModelo);
     $('#precio').on('blur', validarPrecio);
@@ -40,12 +44,35 @@ $(document).ready(function(){
         }
     }
 
+   //verificar si ya existe el producto
+    function validarNombreUnico() {
+        const nombre = $('#name').val().trim();
+        if (nombre === '') return; 
+
+        $.post('./backend/product-check-name.php', { nombre }, function(response) {
+            const res = JSON.parse(response);
+            if (res.exists) {
+                $('#name').addClass('is-invalid');
+                $('#name-error').text(res.message);
+                $('#product-result').show();
+                $('#container').html(`<li style="color:red; list-style:none;"> ${res.message}</li>`);
+                $('#name').data('nombre-existe', true);
+            } else {
+                $('#name').data('nombre-existe', false);
+                if (nombre.length <= 100) {
+                    $('#name').removeClass('is-invalid');
+                    $('#name-error').text('');
+                }
+            }
+        });
+    }
+
     function validarMarca() {
         const val = $('#marca').val();
         const marcasValidas = ["Samsung", "iPhone", "OPPO", "Xiaomi", "Huawei", "Motorola"];
         if (!val || !marcasValidas.includes(val)) {
             $('#marca').addClass('is-invalid');
-            $('#marca-error').text('Marca requerida y  debe ser válida');
+            $('#marca-error').text('La marca es requerida y  debe ser válida');
             return false;
         } else {
             $('#marca').removeClass('is-invalid');
@@ -97,7 +124,7 @@ $(document).ready(function(){
         const val = parseInt($('#unidades').val());
         if (isNaN(val) || val < 0) {
             $('#unidades').addClass('is-invalid');
-            $('#unidades-error').text('Unidades requeridas y ≥ 0');
+            $('#unidades-error').text('El numero de unidades requeridas y deben ser mayor a 0');
             return false;
         } else {
             $('#unidades').removeClass('is-invalid');
@@ -291,7 +318,7 @@ $(document).ready(function(){
             $('#precio').val(product.precio);
             $('#detalles').val(product.detalles === 'NA' ? '' : product.detalles);
             $('#unidades').val(product.unidades);
-            $('#imagen').val(product.imagen === 'img/default.png' ? '' : product.imagen);
+            $('#imagen').val(product.imagen === 'img/imagen.png' ? '' : product.imagen);
             $('#productId').val(product.id)
             
             // SE PONE LA BANDERA DE EDICIÓN EN true
