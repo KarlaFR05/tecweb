@@ -187,7 +187,7 @@ $(document).ready(function(){
                                 <td><a href="#" class="product-item">${producto.nombre}</a></td>
                                 <td><ul>${descripcion}</ul></td>
                                 <td>
-                                    <button class="product-delete btn btn-danger" onclick="eliminarProducto()">
+                                    <button class="product-delete btn btn-danger">
                                         Eliminar
                                     </button>
                                 </td>
@@ -309,13 +309,21 @@ $(document).ready(function(){
         });
     });
 
-    $(document).on('click', '.product-delete', (e) => {
+    $(document).on('click', '.product-delete', function(e) {
+        e.preventDefault();
         if(confirm('¿Realmente deseas eliminar el producto?')) {
             const element = $(this).closest('tr');
-            const id = $(element).attr('productId');
-            $.post('./backend/product-delete.php', {id}, (response) => {
-                $('#product-result').hide();
-                listarProductos();
+            const id = element.attr('productId');
+            $.post('./backend/product-delete.php', {id: id}, (response) => {
+                let res = JSON.parse(response);
+                if (res.status === 'success') {
+                    $('#product-result').show();
+                    $('#container').html(`<li style="color:green; list-style:none;">${res.message}</li>`);
+                    listarProductos(); // actualiza la tabla
+                } else {
+                    $('#product-result').show();
+                    $('#container').html(`<li style="color:red; list-style:none;">${res.message}</li>`);
+                }
             });
         }
     });
