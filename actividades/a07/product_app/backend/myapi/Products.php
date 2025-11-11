@@ -115,7 +115,7 @@ class Products extends DataBase {
             return;
         }
 
-        $sql = "UPDATE productos SET eliminado = 1 WHERE id = $id";
+        $sql = "UPDATE productos SET eliminado = 0 WHERE id = $id";
         if ($this->conexion->query($sql)) {
             if ($this->conexion->affected_rows > 0) {
                 $this->response = [
