@@ -3,21 +3,23 @@ namespace TECWEB\AppWeb\Read;
 
 use TECWEB\AppWeb\DataBase;
 
-class ListProducts extends DataBase {
+class GetProduct extends DataBase {
     private $data = [];
 
     public function __construct($db, $user = 'root', $pass = 'Molly23') {
         parent::__construct($db, $user, $pass);
     }
 
-    public function getAll() {
-        if ($result = $this->conexion->query("SELECT * FROM productos WHERE eliminado = 0")) {
-            $rows = $result->fetch_all(MYSQLI_ASSOC);
-            if (!is_null($rows)) {
-                foreach ($rows as $num => $row) {
-                    foreach ($row as $key => $value) {
-                        $this->data[$num][$key] = $value;
-                    }
+    public function single($id) {
+        if (!isset($id)) {
+            return;
+        }
+
+        if ($result = $this->conexion->query("SELECT * FROM productos WHERE id = {$id}")) {
+            $row = $result->fetch_assoc();
+            if (!is_null($row)) {
+                foreach ($row as $key => $value) {
+                    $this->data[$key] = $value;
                 }
             }
             $result->free();

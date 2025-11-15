@@ -1,7 +1,7 @@
 <?php
-namespace TECWEB\MYAPI\Update;
+namespace TECWEB\AppWeb\Update;
 
-use TECWEB\MYAPI\DataBase;
+use TECWEB\AppWeb\DataBase;
 
 class EditProduct extends DataBase {
     private $data;

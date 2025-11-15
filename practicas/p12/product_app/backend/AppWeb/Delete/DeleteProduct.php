@@ -1,7 +1,7 @@
 <?php
-namespace TECWEB\MYAPI\Delete;
+namespace TECWEB\AppWeb\Read;
 
-use TECWEB\MYAPI\DataBase;
+use TECWEB\AppWeb\DataBase;
 
 class DeleteProduct extends DataBase {
     private $data;

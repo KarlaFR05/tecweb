@@ -1,7 +1,7 @@
 <?php
-namespace TECWEB\MYAPI\Create;
+namespace TECWEB\AppWeb\Create;
 
-use TECWEB\MYAPI\DataBase;
+use TECWEB\AppWeb\DataBase;
 
 class AddProduct extends DataBase {
     private $data;
