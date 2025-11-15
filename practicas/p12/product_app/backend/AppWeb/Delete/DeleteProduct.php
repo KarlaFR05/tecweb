@@ -1,5 +1,5 @@
 <?php
-namespace TECWEB\AppWeb\Read;
+namespace TECWEB\AppWeb\Delete;
 
 use TECWEB\AppWeb\DataBase;
 
