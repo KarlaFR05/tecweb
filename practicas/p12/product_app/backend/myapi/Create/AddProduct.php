@@ -1,0 +1,40 @@
+<?php
+namespace TECWEB\MYAPI\Create;
+
+use TECWEB\MYAPI\DataBase;
+
+class AddProduct extends DataBase {
+    private $data;
+
+    public function __construct($db, $user = 'root', $pass = 'Molly23') {
+        $this->data = ['status' => 'error', 'message' => 'Ya existe un producto con ese nombre'];
+        parent::__construct($db, $user, $pass);
+    }
+
+    public function add($jsonOBJ) {
+        if (!isset($jsonOBJ->nombre)) {
+            $this->data['message'] = 'Nombre no proporcionado';
+            return;
+        }
+
+        $sql = "SELECT * FROM productos WHERE nombre = '{$jsonOBJ->nombre}' AND eliminado = 0";
+        $result = $this->conexion->query($sql);
+
+        if ($result->num_rows == 0) {
+            $this->conexion->set_charset("utf8");
+            $sql = "INSERT INTO productos VALUES (null, '{$jsonOBJ->nombre}', '{$jsonOBJ->marca}', '{$jsonOBJ->modelo}', {$jsonOBJ->precio}, '{$jsonOBJ->detalles}', {$jsonOBJ->unidades}, '{$jsonOBJ->imagen}', 0)";
+            if ($this->conexion->query($sql)) {
+                $this->data = ['status' => 'success', 'message' => 'Producto agregado'];
+            } else {
+                $this->data['message'] = "ERROR: " . mysqli_error($this->conexion);
+            }
+        }
+
+        $result->free();
+        $this->conexion->close();
+    }
+
+    public function getData() {
+        return json_encode($this->data, JSON_PRETTY_PRINT);
+    }
+}
