@@ -6,14 +6,14 @@ use Slim\Factory\AppFactory;
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/myapi/Products.php';
 
-// Crear app Slim
+// Crear la aplicación Slim
 $app = AppFactory::create();
-$app->setBasePath('/practicas/p13/product_app/backend');
-
+$app->setBasePath('/tecweb/practicas/p13/product_app/backend');
 $app->addBodyParsingMiddleware();
 
 
-// GET /products → listar todos
+
+// GET /products
 $app->get('/products', function (Request $request, Response $response) {
     $productos = new TECWEB\MYAPI\Products('marketzone');
     $productos->list();
@@ -37,7 +37,7 @@ $app->get('/products/search/{query}', function (Request $request, Response $resp
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-// POST /products
+// POST /products  crear
 $app->post('/products', function (Request $request, Response $response) {
     $data = $request->getParsedBody();
     $productos = new TECWEB\MYAPI\Products('marketzone');
@@ -46,7 +46,7 @@ $app->post('/products', function (Request $request, Response $response) {
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-// PUT /products/{id}
+// PUT /products/{id}  actualizar
 $app->put('/products/{id}', function (Request $request, Response $response, $args) {
     $data = $request->getParsedBody();
     $data['id'] = $args['id'];
@@ -56,7 +56,7 @@ $app->put('/products/{id}', function (Request $request, Response $response, $arg
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-// DELETE /products/{id}
+// DELETE /products/{id} 
 $app->delete('/products/{id}', function (Request $request, Response $response, $args) {
     $productos = new TECWEB\MYAPI\Products('marketzone');
     $productos->delete($args['id']);
@@ -64,10 +64,11 @@ $app->delete('/products/{id}', function (Request $request, Response $response, $
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-// CORS (opcional, útil en desarrollo)
+
 $app->options('/{routes:.+}', function (Request $request, Response $response) {
     return $response;
 });
+
 $app->add(function ($request, $handler) {
     $response = $handler->handle($request);
     return $response
