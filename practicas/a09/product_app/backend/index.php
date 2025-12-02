@@ -8,7 +8,7 @@ require_once __DIR__ . '/myapi/Products.php';
 
 // Crear la aplicación Slim
 $app = AppFactory::create();
-$app->setBasePath('/tecweb/practicas/p13/product_app/backend');
+$app->setBasePath('/tecweb/practicas/a09/product_app/backend');
 $app->addBodyParsingMiddleware();
 
 
